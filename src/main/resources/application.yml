@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: ai-assistant
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/ai_assistant?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    hikari:
+      initialization-fail-timeout: -1
+      connection-timeout: 5000
+      maximum-pool-size: 5
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+assistant:
+  ai:
+    base-url: https://open.bigmodel.cn/api/paas/v4
+    api-key: ${AI_API_KEY:}
+    chat-model: glm-4.6v
+    embedding-model: embedding-3
+    temperature: 0.2
+  rag:
+    chunk-size: 400
+    chunk-overlap: 60
+    top-k: 3
+    min-score: 0.35
